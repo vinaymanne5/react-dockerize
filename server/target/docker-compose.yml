@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  dbservice:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - "3307:3306"  # Corrected port mapping
+    networks:
+      - dod
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - dbservice
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://dbservice:3306/dddb?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8081:8081"
+    networks:
+      - dod
+
+networks:
+  dod:

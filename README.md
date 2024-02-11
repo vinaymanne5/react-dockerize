@@ -9,3 +9,6 @@ run on local host : http://localhost:8080/
 
 # Run server 
 
+Compose and up the docker-compose.yml 
+
+Run the dbservice first and then run backend image to get the backend kick start runing
